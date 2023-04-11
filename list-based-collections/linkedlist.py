@@ -30,19 +30,38 @@ class LinkedList(object):
         """Get an element from a particular position.
         Assume the first position is "1".
         Return "None" if position is not in the list."""
-        return None
+        if not self.head:
+            return None
+
+        cur_pos = 1
+        current = self.head
+        while cur_pos < position and current.next:
+            current = current.next
+            cur_pos += 1
+        return current if current else None
     
     def insert(self, new_element, position):
         """Insert a new node at the given position.
         Assume the first position is "1".
         Inserting at position 3 means between
         the 2nd and 3rd elements."""
-        pass
+        prev = self.get_position(position-1)
+        after = prev.next
+        prev.next = new_element
+        new_element.next = after
     
     
     def delete(self, value):
         """Delete the first node with a given value."""
-        pass
+        prev = self.head
+        if prev.value == value:
+            self.head = prev.next
+            return
+        current = prev.next
+        while current.value != value:
+            prev = prev.next
+            current = current.next
+        prev.next = current.next
 
 # Test cases
 # Set up some Elements
@@ -58,20 +77,20 @@ ll.append(e3)
 
 # Test get_position
 # Should print 3
-print ll.head.next.next.value
+print(ll.head.next.next.value)
 # Should also print 3
-print ll.get_position(3).value
+print(ll.get_position(3).value)
 
 # Test insert
 ll.insert(e4,3)
 # Should print 4 now
-print ll.get_position(3).value
+print(ll.get_position(3).value)
 
 # Test delete
 ll.delete(1)
 # Should print 2 now
-print ll.get_position(1).value
+print(ll.get_position(1).value)
 # Should print 4 now
-print ll.get_position(2).value
+print(ll.get_position(2).value)
 # Should print 3 now
-print ll.get_position(3).value
+print(ll.get_position(3).value)
