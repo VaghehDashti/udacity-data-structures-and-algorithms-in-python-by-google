@@ -4,7 +4,9 @@ Your code should have the same input/output as the
 iterative code in the instructions."""
 
 def get_fib(position):
-    return -1
+    if position <= 1:
+        return position
+    return get_fib(position-2) + get_fib(position-1) 
 
 # Test cases
 print(get_fib(9))
